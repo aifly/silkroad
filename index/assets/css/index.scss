@@ -1,0 +1,45 @@
+﻿@import "../../../assets/css/base.scss";
+
+
+@mixin full{
+  left:0;
+  top:0;
+  width:100%;
+  height: 100%;
+}
+
+.index-main-ui{
+  @include transform3d();
+  box-sizing:border-box;
+  .index-bg{
+    img{
+      width: auto;
+      height: 100%;
+    }  
+    @include pos(a);
+    right: 0;
+    
+      
+  }
+  .zmiti-camel{
+    
+    @include pos(a);
+    bottom:18vh;
+    right: 0;
+    z-index: 10;
+    @include transform(scale(1.1));
+    transform-origin: 60% 78%;
+    img{
+      display: inline;
+      &:first-of-type{
+        width: 2.3rem;
+      }
+      width: 2rem;
+
+    }
+  }
+
+  @include pos(a);
+  @include full();
+  
+}
