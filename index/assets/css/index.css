@@ -10,12 +10,17 @@
   left: 0;
   top: 0; }
 
+html, body {
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent; }
+
 .index-main-ui {
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  perspective: 800px;
-  -webkit-perspective: 800px;
+  perspective: 400px;
+  -webkit-perspective: 400px;
   box-sizing: border-box;
+  overflow: hidden;
   position: absolute;
   left: 0;
   top: 0;
@@ -28,18 +33,43 @@
       width: auto;
       height: 100%; }
   .index-main-ui .zmiti-camel {
+    width: 10rem;
     position: absolute;
     bottom: 18vh;
     right: 0;
     z-index: 10;
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-    -webkit-transform-origin: 60% 78%;
-            transform-origin: 60% 78%; }
+    -webkit-transform: translate3d(6rem, 0, 0);
+    transform: translate3d(6rem, 0, 0);
+    -webkit-transform-origin: center 30%;
+    transform-origin: center 30%; }
+    .index-main-ui .zmiti-camel.duration {
+      -webkit-transition: -webkit-transform 3s linear;
+      transition: -webkit-transform 3s linear;
+      transition: transform 3s linear;
+      transition: transform 3s linear, -webkit-transform 3s linear; }
+    .index-main-ui .zmiti-camel.active {
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0); }
     .index-main-ui .zmiti-camel img {
       display: inline;
-      width: 2rem; }
+      width: 3.3rem; }
       .index-main-ui .zmiti-camel img:first-of-type {
-        width: 2.3rem; }
+        width: 3.3rem; }
+      .index-main-ui .zmiti-camel img.zmiti-good {
+        position: absolute;
+        left: 50%;
+        top: .2rem;
+        z-index: 10;
+        width: .6rem; }
+  .index-main-ui .zmiti-change {
+    position: relative;
+    left: 50%;
+    width: 6rem;
+    margin-left: -4rem;
+    top: 3vh; }
+    .index-main-ui .zmiti-change img {
+      opacity: 0;
+      width: 100%;
+      height: auto; }
 
 /*# sourceMappingURL=index.css.map */

@@ -23,6 +23,7 @@ import jQuery from 'jquery';
         var UP = isMobile ? "touchend" : "mouseup";
         var config = $.extend(setting, option);
         this.on(CLICK, function (e) {
+
             var e = isMobile ? e.originalEvent.changedTouches[0] : e;
             var startX = e.pageX, startY = e.pageY, startTime = Date.now();
             self.on(MOVE, function (e) {

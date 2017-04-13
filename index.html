@@ -6,7 +6,8 @@
 	<meta name="format-detection" content="telephone=no,email=no" />
 	<title></title>
 	<script>
-		//document.addEventListener("touchmove",function(e){e.preventDefault();});
+		document.addEventListener("touchmove",function(e){e.preventDefault();});
+		document.getElementsByTagName('html')[0].style.fontSize = document.documentElement.clientWidth /10+'px';
 	</script>
 	<style>
 		
@@ -34,9 +35,15 @@
 				document.body.appendChild(script);
 			})()*/
 
+			var img = new Image();
+			
+			img.src='./assets/images/bianqian1.png'
+
 		</script>
 
 		<script src='http://res.wx.qq.com/open/js/jweixin-1.2.0.js'></script>
+
+		<script type="text/javascript" src='./assets/js/createjs.js'></script>
 
 		<script src='http://localhost:3004/index.js' onError='onError()'></script>
 		<!-- <script src='http://res.wx.qq.com/open/js/jweixin-1.2.0.js'></script> -->

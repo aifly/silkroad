@@ -8,7 +8,9 @@ class ZmitiIndexApp extends Component {
 		super(props);
 		this.state={
 			scale:2,
-			imgW:0
+			imgW:0,
+			bHeight:0,
+			isBegin:false
 		};
 		this.viewW = document.documentElement.clientWidth;
 		this.viewH = document.documentElement.clientHeight;
@@ -19,30 +21,201 @@ class ZmitiIndexApp extends Component {
 
 		return (
 			<div className='index-main-ui' style={{width:this.viewW,height:this.viewH}}>
-				<div className='index-bg' ref='index-bg' style={{height:this.viewH ,width:this.viewH*this.state.scale} }>
+				<div  className={'index-bg '+ (this.state.isBegin?' ':'')} ref='index-bg' style={{height:this.viewH ,width:this.viewH*this.state.scale} }>
 					<img onLoad={(e)=>{this.setState({scale:e.target.width/e.target.height,imgW:e.target.width})}} src='./assets/images/bg.jpg'/>
 				</div>
-				<div className='zmiti-camel' ref='zmiti-camel'>
+				<div onTransitionEnd={this.camelTranstionEnd.bind(this)} className={'zmiti-camel '+ (this.state.isBegin?'active duration':'')} ref='zmiti-camel'>
 					<img src='./assets/images/camel.gif'/>
 					<img src='./assets/images/camel1.gif'/>
 					<img src='./assets/images/camel1.gif'/>
 				</div>
+				<section className='zmiti-change' ref='zmiti-change' style={{height:this.state.bHeight}}>
+					<img  draggable='false' onTouchStart={e=>e.preventDefault()} onLoad={this.beginCanvasAnimate.bind(this)} src='./assets/images/bianqian1.png'/>
+				</section>
 			</div>
 		);
+	}
+
+	camelTranstionEnd(){
+		if(!this.start){
+			this.start =true;
+			setTimeout(()=>{
+				this.camel.classList.remove('duration');
+				this.indexBg.classList.remove('duration');
+				this.animate();
+			},1000)
+		}
+		
+	}
+
+	beginCanvasAnimate(e){
+		var target = e.target;
+		var s = this;
+		setTimeout(()=>{
+			this.setState({bHeight:target.height})
+			s.flyParticleToImage({
+				container:s.refs['zmiti-change'],
+				img:s.refs['zmiti-change'].querySelector('img')
+			})
+			/* */
+		},1000);
+	}
+
+	componentWillUnmount() {
+		this.bgTimer && clearInterval(this.bgTimer);
+		this.timer && clearInterval(this.timer);
+	}
+
+	flyParticleToImage(option ={}){
+
+        option.container.innerHTML = "";
+        var canvas = document.createElement("canvas");
+        canvas.style.transition = "1s opacity";
+        canvas.style.position = "absolute";
+        
+        canvas.width = option.container.offsetWidth;
+        canvas.height = option.container.offsetHeight;
+        option.img.width = canvas.width;
+        option.img.height  = canvas.height ;
+
+        option.container.appendChild(canvas);
+        var stage = new createjs.Stage(canvas);
+        var container = new createjs.Container();
+
+        var outCanvas = createShape();
+        var outContext = outCanvas.getContext("2d");
+        var dots = getImageData(outCanvas, outContext);
+
+
+        var ball = [];
+
+        for (var i = 0; i < dots.length; i++) {
+            var shape = new createjs.Shape();
+            var x = Math.random() * canvas.width * 2,
+                y = Math.random() * canvas.height * 2;
+            var circle = shape.graphics.beginFill('rgba('+dots[i].r+','+dots[i].g+','+dots[i].b+','+dots[i].a+')').drawCircle(x-14, y, 1);
+            shape.posX = x-3;
+            shape.posY = y;
+            container.addChild(shape);
+            ball.push(shape);
+        }
+        container.x = 10;
+
+
+        stage.addChild(container);
+
+        stage.update();
+
+
+
+        function getImageData(outCanvas, outContext) {
+            var imgData = outContext.getImageData(0, 0, outCanvas.width, outCanvas.height);
+            var dots = [],
+                x = 0,
+                y = 0,
+                gap = 4;
+
+            for (var x = 0; x < imgData.width; x += gap) {
+                for (var y = 0; y < imgData.height; y += gap) {
+                    var i = (x + y * outCanvas.width) * 4;
+                    
+                    if (imgData.data[i + 3] > 50 && imgData.data[i ] !==255 && imgData.data[i +1] !==255 && imgData.data[i +2] !==255) {
+                        dots.push({
+                            x: x,
+                            y: y,
+                            r:imgData.data[i],
+                            g:imgData.data[i + 1],
+                            b:imgData.data[i + 2],
+                            a:imgData.data[i + 3]
+                        });
+                    }
+                }
+            }
+            return dots;
+        }
+
+        function createShape() {
+            var outCanvas = document.createElement("canvas");
+            outCanvas.width = option.img.width;
+            outCanvas.height = option.img.height;
+            var context = outCanvas.getContext("2d");
+            var outStage = new createjs.Stage(outCanvas);
+
+
+            context.drawImage(option.img, 0, 0, option.img.width, option.img.height);
+
+            outCanvas.style.position = "absolute";
+            outCanvas.style.opacity = 0;
+            outCanvas.style.transition = "opacity 2s";
+
+            option.container.appendChild(outCanvas);
+
+            return outCanvas;
+        }
+
+
+        for (var i = 0; i < ball.length; i++) {
+            createjs.Tween.get(ball[i], { override: true }).wait(Math.random() * 800).to({ x: dots[i].x - ball[i].posX, y: dots[i].y - ball[i].posY, alpha: 1 }, 500, createjs.Ease.cubicInOut);
+        }
+        setTimeout(function () {
+            outCanvas.style.opacity = 1;
+            canvas.style.opacity = 0;
+            option.complate && option.complate();
+        }, 2000);
+        createjs.Ticker.setFPS(60);
+        createjs.Ticker.addEventListener("tick", stage);
 	}
 
 
 	componentDidMount() {
 		var iNow=1;
+		this.iNow = iNow;
 		var camel = this.refs['zmiti-camel'];
+		this.camel = camel;
 		var indexBg = this.refs['index-bg'];
-		var timer = setInterval(()=>{
+		this.indexBg = indexBg;
+
+		
+		/*setTimeout(()=>this.beginGame(),100);
+
+		this.bgZ = 0;
+
+		var x = 0;
+		this.bgTimer = setInterval(()=>{
+			x+=.4;
+			this.indexBg.style.WebkitTransform = 'translate3d('+x+'px,0,'+this.bgZ+'px)';
+		},20)*/
+	}
+
+	beginGame(){
+		this.setState({
+			isBegin:true
+		})
+	}
+
+	animate(){
+		var iNow = this.iNow;
+		this.timer = setInterval(()=>{
 			iNow+=1;
-			if(iNow/1.5>500){
-				clearInterval(timer)
+			
+
+			var scale = (iNow/20<1?1:iNow/25);
+			scale > 2 && (scale = 2);
+			var top = iNow*4 >this.viewW / 10 * 4.5 ? this.viewW / 10 * 4.5 : iNow *4;
+			var z = iNow*4 > 200 ? 200 : iNow *4 ;
+
+			this.camel.style.WebkitTransform = 'translate3d('+0+'px,'+-top+'px,'+z+'px)';
+			this.indexBg.style.top = -top + 'px';
+
+			this.bgZ = z;
+
+
+			if(this.state.imgW - this.viewW<iNow*4){
+				clearInterval(this.timer);
+
+				this.camel.style.transition = '2s';
+				this.camel.style.WebkitTransform = 'translate3d('+-5+'px,'+(-this.viewW/10*3.2)+'px,'+400+'px)';
 			}
-			camel.style.WebkitTransform = 'translate3d('+-iNow/6+'px,'+-iNow/4+'px,'+iNow*1.5+'px)';
-			indexBg.style.WebkitTransform = 'translate3d('+iNow+'px,0,0px)';
 		},20)
 	}
 }

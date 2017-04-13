@@ -7,20 +7,32 @@ import IScroll from 'iscroll';
 import './assets/css/index.css';
 
 import ZmitiIndexApp from './index/index.jsx';
+import ZmitiContentApp from './content/index.jsx';
+import ZmitiTrainApp from './train/index.jsx';
+
+
+import Obserable  from './assets/js/obserable';
+
+var obserable = new Obserable();
 
 export class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			
+			isEntry:true
 		}
 		this.viewW = document.documentElement.clientWidth;
 		this.viewH = document.documentElement.clientHeight;
 	}
 	render() {
+		var data ={
+			obserable
+		}
 		return (
 			<div className='zmiti-main-ui' >
-				<ZmitiIndexApp></ZmitiIndexApp>
+				{!this.state.isEntry && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
+				{this.state.isEntry && <ZmitiContentApp {...data}></ZmitiContentApp>}
+				<ZmitiTrainApp {...data}></ZmitiTrainApp>
 			</div>
 		);
 	}
@@ -110,7 +122,7 @@ export class App extends Component {
 	}
 
 	componentDidMount() {
-		
+
 	}
 
 	loading(arr, fn, fnEnd){
