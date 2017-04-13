@@ -19,7 +19,8 @@ export class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isEntry:true
+			isEntry:true,
+			showTrain:false
 		}
 		this.viewW = document.documentElement.clientWidth;
 		this.viewH = document.documentElement.clientHeight;
@@ -32,7 +33,7 @@ export class App extends Component {
 			<div className='zmiti-main-ui' >
 				{!this.state.isEntry && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
 				{this.state.isEntry && <ZmitiContentApp {...data}></ZmitiContentApp>}
-				<ZmitiTrainApp {...data}></ZmitiTrainApp>
+				{this.state.showTrain && <ZmitiTrainApp {...data}></ZmitiTrainApp>}
 			</div>
 		);
 	}
@@ -122,8 +123,12 @@ export class App extends Component {
 	}
 
 	componentDidMount() {
-
-	}
+		obserable.on('showTrain',()=>{
+			this.setState({
+				showTrain:true
+			})
+		});
+	}	
 
 	loading(arr, fn, fnEnd){
         var len = arr.length;

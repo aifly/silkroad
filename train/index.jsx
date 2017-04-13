@@ -34,13 +34,15 @@ class ZmitiTrainApp extends Component {
 	componentDidMount() {
 
 
+		setTimeout(()=>{
+			this.setState({
+				back:true	
+			});
+		},1000)	
+
 		var {obserable} = this.props;
 		obserable.on('showTrain',()=>{
-			setTimeout(()=>{
-				this.setState({
-					back:true	
-				});
-			},1000)	
+		
 		});
 	}
 }

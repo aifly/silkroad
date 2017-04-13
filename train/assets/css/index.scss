@@ -20,12 +20,11 @@
     }
    
     height: 5rem;
-     -webkit-transition:6s -webkit-transform;
-    transition:6s transform;
+     -webkit-transition:9s -webkit-transform ;
+    transition:9s transform ;
     @include transform(translate3d(0.095rem, -0.05rem, 31.5rem));
     @include pos(a);
     top: 47%;
-    width: 10rem;
     @include transformOrigin(bottom);
     .zmiti-train-road{
       width: 100%;

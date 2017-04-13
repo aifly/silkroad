@@ -110,7 +110,8 @@
 
 			_get(Object.getPrototypeOf(App.prototype), 'constructor', this).call(this, props);
 			this.state = {
-				isEntry: true
+				isEntry: true,
+				showTrain: false
 			};
 			this.viewW = document.documentElement.clientWidth;
 			this.viewH = document.documentElement.clientHeight;
@@ -127,7 +128,7 @@
 					{ className: 'zmiti-main-ui' },
 					!this.state.isEntry && _react2['default'].createElement(_indexIndexJsx2['default'], data),
 					this.state.isEntry && _react2['default'].createElement(_contentIndexJsx2['default'], data),
-					_react2['default'].createElement(_trainIndexJsx2['default'], data)
+					this.state.showTrain && _react2['default'].createElement(_trainIndexJsx2['default'], data)
 				);
 			}
 		}, {
@@ -202,7 +203,15 @@
 			}
 		}, {
 			key: 'componentDidMount',
-			value: function componentDidMount() {}
+			value: function componentDidMount() {
+				var _this = this;
+
+				obserable.on('showTrain', function () {
+					_this.setState({
+						showTrain: true
+					});
+				});
+			}
 		}, {
 			key: 'loading',
 			value: function loading(arr, fn, fnEnd) {
@@ -34961,10 +34970,7 @@
 								_this2.setState({
 									isBlur: true
 								});
-								setTimeout(function () {
-
-									obserable.trigger({ type: 'showTrain' });
-								}, 3000);
+								obserable.trigger({ type: 'showTrain' });
 							} else {
 								iNow++;
 								_this2.setState({
@@ -34973,7 +34979,6 @@
 							}
 						}, 2000);
 					} else {
-						console.log(23);
 						_this2.setState({
 							current: iNow
 						});
@@ -35194,15 +35199,15 @@
 			value: function componentDidMount() {
 				var _this = this;
 
+				setTimeout(function () {
+					_this.setState({
+						back: true
+					});
+				}, 1000);
+
 				var obserable = this.props.obserable;
 
-				obserable.on('showTrain', function () {
-					setTimeout(function () {
-						_this.setState({
-							back: true
-						});
-					}, 1000);
-				});
+				obserable.on('showTrain', function () {});
 			}
 		}]);
 
@@ -35247,7 +35252,7 @@
 
 
 	// module
-	exports.push([module.id, "/*.ant-btn:focus, .ant-btn:hover,.ant-input:focus, .ant-input:hover {\r\n    background-color: #fff;\r\n    border-color: #bf1616;\r\n    box-shadow: 0 0 0 2px rgba(191, 22, 22, 0.1);\r\n}*/\r\n.lt-full {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0; }\r\n\r\n.zmiti-train-main-ui {\r\n  width: 100%;\r\n  height: 100%;\r\n  position: absolute;\r\n  left: 0;\r\n  top: 0;\r\n  z-index: 0;\r\n  -webkit-transform-style: preserve-3d;\r\n  transform-style: preserve-3d;\r\n  perspective: 32rem;\r\n  -webkit-perspective: 32rem; }\r\n  .zmiti-train-main-ui .zmiti-train-C {\r\n    width: 10rem;\r\n    height: 5rem;\r\n    -webkit-transition: 6s -webkit-transform;\r\n    transition: 6s -webkit-transform;\r\n    transition: 6s transform;\r\n    transition: 6s transform, 6s -webkit-transform;\r\n    -webkit-transform: translate3d(0.095rem, -0.05rem, 31.5rem);\r\n    transform: translate3d(0.095rem, -0.05rem, 31.5rem);\r\n    position: absolute;\r\n    top: 47%;\r\n    width: 10rem;\r\n    -webkit-transform-origin: bottom;\r\n    transform-origin: bottom; }\r\n    .zmiti-train-main-ui .zmiti-train-C.active {\r\n      -webkit-transform: translate3d(0, 0, 0);\r\n      transform: translate3d(0, 0, 0);\r\n      opacity: 1; }\r\n    .zmiti-train-main-ui .zmiti-train-C img {\r\n      -webkit-transform: translate3d(1rem, 0, 0);\r\n      transform: translate3d(1rem, 0, 0); }\r\n    .zmiti-train-main-ui .zmiti-train-C .zmiti-train-road {\r\n      width: 100%;\r\n      height: 10px;\r\n      position: absolute;\r\n      right: 0; }\r\n\r\n/*# sourceMappingURL=index.css.map */", ""]);
+	exports.push([module.id, ".lt-full{width:100%;height:100%;position:absolute;left:0;top:0}.zmiti-train-main-ui{width:100%;height:100%;position:absolute;left:0;top:0;z-index:0;-webkit-transform-style:preserve-3d;transform-style:preserve-3d;perspective:32rem;-webkit-perspective:32rem}.zmiti-train-main-ui .zmiti-train-C{width:10rem;height:5rem;-webkit-transition:9s -webkit-transform;transition:9s transform;-webkit-transform:translate3d(0.095rem, -0.05rem, 31.5rem);transform:translate3d(0.095rem, -0.05rem, 31.5rem);position:absolute;top:47%;-webkit-transform-origin:bottom;transform-origin:bottom}.zmiti-train-main-ui .zmiti-train-C.active{-webkit-transform:translate3d(0, 0, 0);transform:translate3d(0, 0, 0);opacity:1}.zmiti-train-main-ui .zmiti-train-C img{-webkit-transform:translate3d(1rem, 0, 0);transform:translate3d(1rem, 0, 0)}.zmiti-train-main-ui .zmiti-train-C .zmiti-train-road{width:100%;height:10px;position:absolute;right:0}\r\n/*# sourceMappingURL=index.css.map */\r\n", ""]);
 
 	// exports
 

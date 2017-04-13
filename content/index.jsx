@@ -88,11 +88,7 @@ class ZmitiContentApp extends Component {
 						this.setState({
 							isBlur:true
 						});
-						setTimeout(()=>{
-
-							obserable.trigger({type:'showTrain'})
-
-						},3000)
+						obserable.trigger({type:'showTrain'})
 					}else{
 						iNow++;
 						this.setState({
@@ -102,7 +98,6 @@ class ZmitiContentApp extends Component {
 					
 				},2000);
 			}else{
-				console.log(23);
 				this.setState({
 					current:iNow
 				})	
