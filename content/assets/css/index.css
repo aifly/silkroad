@@ -26,12 +26,14 @@
   -webkit-box-pack: center;
   -webkit-box-orient: vertical; }
   .zmiti-content-main-ui.blur {
+    -webkit-transition: 4s;
+    transition: 4s;
     -webkit-transform: scale(3);
     transform: scale(3);
     -webkit-filter: blur(10px);
-    -webkit-transition: 3s;
-    transition: 3s;
     opacity: 0; }
+  .zmiti-content-main-ui .zmiti-silk {
+    margin-top: 1rem; }
   .zmiti-content-main-ui > section {
     -webkit-box-flex: 2;
     width: 100%; }

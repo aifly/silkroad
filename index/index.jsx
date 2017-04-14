@@ -10,7 +10,22 @@ class ZmitiIndexApp extends Component {
 			scale:2,
 			imgW:0,
 			bHeight:0,
-			isBegin:false
+			isBegin:false,
+			changeImgShow:true,
+			showBeginBtn:false,
+			currentText:-1,
+			showTitle:false,
+			showText2:false,
+			indexBgStyle:{
+				x:0,
+				y:0,
+				z:0
+			},
+			camelStyle:{
+				x:0,
+				y:0,
+				z:0
+			}
 		};
 		this.viewW = document.documentElement.clientWidth;
 		this.viewH = document.documentElement.clientHeight;
@@ -18,20 +33,43 @@ class ZmitiIndexApp extends Component {
 
 	render() {
 
+		var indexBgStyle ={
+			height:this.viewH,
+			width:this.viewH*this.state.scale
+
+		};
+		if(this.state.indexBgStyle.x !==0 || this.state.indexBgStyle.y !==0 || this.state.indexBgStyle.z !==0 ){
+
+			indexBgStyle.WebkitTransform ='translate3d('+this.state.indexBgStyle.x+'px,'+this.state.indexBgStyle.y+'px,'+this.state.indexBgStyle.z+'px)'
+		}
+
+		var camelStyle ={
+
+		};
+		if(this.state.camelStyle.x !==0 || this.state.camelStyle.y !==0 || this.state.camelStyle.z !==0 ){
+			camelStyle.WebkitTransform ='translate3d('+this.state.camelStyle.x+'px,'+this.state.camelStyle.y+'px,'+this.state.camelStyle.z+'px)';
+			camelStyle.WebkitTransition = this.state.camelStyle.transition;			
+		}
 
 		return (
 			<div className='index-main-ui' style={{width:this.viewW,height:this.viewH}}>
-				<div  className={'index-bg '+ (this.state.isBegin?' ':'')} ref='index-bg' style={{height:this.viewH ,width:this.viewH*this.state.scale} }>
+				<div  className={'index-bg '+ (this.state.isBegin?' active time':'')} ref='index-bg' style={indexBgStyle}>
 					<img onLoad={(e)=>{this.setState({scale:e.target.width/e.target.height,imgW:e.target.width})}} src='./assets/images/bg.jpg'/>
 				</div>
-				<div onTransitionEnd={this.camelTranstionEnd.bind(this)} className={'zmiti-camel '+ (this.state.isBegin?'active duration':'')} ref='zmiti-camel'>
+				<div onTransitionEnd={this.camelTranstionEnd.bind(this)} className={'zmiti-camel '+ (this.state.isBegin?'active duration':'')} style={camelStyle} ref='zmiti-camel'>
 					<img src='./assets/images/camel.gif'/>
 					<img src='./assets/images/camel1.gif'/>
 					<img src='./assets/images/camel1.gif'/>
 				</div>
-				<section className='zmiti-change' ref='zmiti-change' style={{height:this.state.bHeight}}>
-					<img  draggable='false' onTouchStart={e=>e.preventDefault()} onLoad={this.beginCanvasAnimate.bind(this)} src='./assets/images/bianqian1.png'/>
+				<section className={'zmiti-change '+(this.state.changeImgShow?'':'hide')} ref='zmiti-change' style={{height:this.state.bHeight}}>
+					<img  draggable='false' onTouchStart={e=>e.preventDefault()} className={this.state.imgShow?'active':''} onLoad={()=>{this.setState({imgShow:true,showTitle:true})}} src='./assets/images/bianqian1.png'/>
 				</section>
+				{this.state.showBeginBtn || !this.state.clicked && <section onTouchTap={this.begin.bind(this)} className='zmiti-begin'>
+									<img src='./assets/images/begin.png'/>
+								</section>}
+				<div className={'index-text ' +(this.state.changeImgShow?'':'hide')+(this.state.showTitle ?' active':' ') }>样子变了,<br/>&nbsp;&nbsp;不忘初心。 </div>
+				<div className={'index-text1 '+(this.state.currentText === 0 ? 'show':'')}>从中国西安出发,一路向西，跨越高原峡谷，奔波沙漠盆地，深入中亚腹地，通连欧洲。输往西方的主要货物，从丝绸到瓷器与茶叶，形成一股持续吹向全球的东方文明之风 </div>
+				<div onTransitionEnd={this.textEnd.bind(this)}  className={'index-text2 '+ (this.state.showText2?'show':'')}>从一步一个脚印的大漠驼队，到呼啸飞驰的中欧班列，“钢铁驼队”穿越了千年的时空。</div>
 			</div>
 		);
 	}
@@ -42,7 +80,9 @@ class ZmitiIndexApp extends Component {
 			setTimeout(()=>{
 				this.camel.classList.remove('duration');
 				this.indexBg.classList.remove('duration');
+				this.indexBg.classList.remove('time');
 				this.animate();
+
 			},1000)
 		}
 		
@@ -52,21 +92,29 @@ class ZmitiIndexApp extends Component {
 		var target = e.target;
 		var s = this;
 		setTimeout(()=>{
-			this.setState({bHeight:target.height})
+			this.setState({bHeight:target.height,showTitle:true})
 			s.flyParticleToImage({
 				container:s.refs['zmiti-change'],
-				img:s.refs['zmiti-change'].querySelector('img')
+				img:s.refs['zmiti-change'].querySelector('img'),
+				complate:()=>{
+					s.setState({
+						showBeginBtn:true
+					});
+
+					this.createjs = null;
+				}
 			})
+
 			/* */
 		},1000);
 	}
 
 	componentWillUnmount() {
-		this.bgTimer && clearInterval(this.bgTimer);
-		this.timer && clearInterval(this.timer);
+		this.timer = false;
+		this.bgTimer = false;
 	}
 
-	flyParticleToImage(option ={}){
+	/*flyParticleToImage(option ={}){
 
         option.container.innerHTML = "";
         var canvas = document.createElement("canvas");
@@ -164,8 +212,48 @@ class ZmitiIndexApp extends Component {
         }, 2000);
         createjs.Ticker.setFPS(60);
         createjs.Ticker.addEventListener("tick", stage);
-	}
+	}*/
 
+	begin(){
+
+		this.starting = this.starting || 1;
+
+		if(this.starting === 1){
+			this.starting = 2;
+			$('#zmiti-bgsound')[0].pause();
+			$('#zmiti-bgsound1')[0].play();
+
+			setTimeout(()=>this.beginGame(),100);
+
+			this.bgZ = 0;
+			this.bgTop = 0;
+
+			this.setState({
+				changeImgShow:false,
+				clicked:true,
+				showBeginBtn:false,
+				showTitle:false,//清除默认的文字。
+
+			});
+
+			
+
+			setTimeout(()=>{
+				this.setState({
+					currentText:0
+				});
+			},3000);
+
+			setTimeout(()=>{
+				this.setState({
+					showText2:true,
+					currentText:2
+				});
+			},6000)
+		}
+
+		
+	}
 
 	componentDidMount() {
 		var iNow=1;
@@ -175,16 +263,8 @@ class ZmitiIndexApp extends Component {
 		var indexBg = this.refs['index-bg'];
 		this.indexBg = indexBg;
 
+		this.requesAniation = window.webkitRequestAnimationFrame ;
 		
-		/*setTimeout(()=>this.beginGame(),100);
-
-		this.bgZ = 0;
-
-		var x = 0;
-		this.bgTimer = setInterval(()=>{
-			x+=.4;
-			this.indexBg.style.WebkitTransform = 'translate3d('+x+'px,0,'+this.bgZ+'px)';
-		},20)*/
 	}
 
 	beginGame(){
@@ -195,28 +275,69 @@ class ZmitiIndexApp extends Component {
 
 	animate(){
 		var iNow = this.iNow;
+
+		this.timer =true;
+		var x = 0;
+		var s =this;
 		this.timer = setInterval(()=>{
 			iNow+=1;
-			
 
 			var scale = (iNow/20<1?1:iNow/25);
 			scale > 2 && (scale = 2);
 			var top = iNow*4 >this.viewW / 10 * 4.5 ? this.viewW / 10 * 4.5 : iNow *4;
 			var z = iNow*4 > 200 ? 200 : iNow *4 ;
 
-			this.camel.style.WebkitTransform = 'translate3d('+0+'px,'+-top+'px,'+z+'px)';
-			this.indexBg.style.top = -top + 'px';
+			s.state.camelStyle.x =0;
+			s.state.camelStyle.y = -top;
+			s.state.camelStyle.z = z;
 
+
+			x+=.1;
+			s.state.indexBgStyle.x = x;
+
+			s.state.indexBgStyle.y = -top;
+			s.state.indexBgStyle.z = z
+
+
+			s.forceUpdate()
+			//this.camel.style.WebkitTransform = 'translate3d('+0+'px,'+-top+'px,'+z+'px)';
+
+			this.bgTop = -top;
 			this.bgZ = z;
+		})
+	
+		 
+	}
 
 
-			if(this.state.imgW - this.viewW<iNow*4){
-				clearInterval(this.timer);
+	textEnd(){
+		var {obserable} = this.props;
 
-				this.camel.style.transition = '2s';
-				this.camel.style.WebkitTransform = 'translate3d('+-5+'px,'+(-this.viewW/10*3.2)+'px,'+400+'px)';
-			}
-		},20)
+		this.setState({
+			showText2:false
+		});
+
+		clearInterval(this.timer)
+		this.timer = false;
+		this.bgTimer = false;
+		/*;
+		clearInterval(this.bgTimer);*/
+		this.state.camelStyle.transition = '2s';
+		this.state.camelStyle.x =-5;
+		this.state.camelStyle.y = -this.viewW/10*2.5;
+		this.state.camelStyle.z = this.viewW / 10 * 12.5;
+			
+		
+		this.forceUpdate();
+		//this.camel.style.WebkitTransform = 'translate3d('+-5+'px,'+(-this.viewW/10*2.5)+'px,'+400+'px)';
+		
+		setTimeout(()=>{
+			obserable.trigger({
+				type:'entryContent'
+			})
+		},1000)
+
+		
 	}
 }
 export default PubCom(ZmitiIndexApp);

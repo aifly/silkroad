@@ -9,6 +9,7 @@ import './assets/css/index.css';
 import ZmitiIndexApp from './index/index.jsx';
 import ZmitiContentApp from './content/index.jsx';
 import ZmitiTrainApp from './train/index.jsx';
+import ZmitiLoadingApp from './loading/index.jsx';
 
 
 import Obserable  from './assets/js/obserable';
@@ -19,8 +20,11 @@ export class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isEntry:true,
-			showTrain:false
+			isEntry:false,
+			showTrain:false,
+			progress:'0%',
+			showLoading:true,
+
 		}
 		this.viewW = document.documentElement.clientWidth;
 		this.viewH = document.documentElement.clientHeight;
@@ -31,8 +35,9 @@ export class App extends Component {
 		}
 		return (
 			<div className='zmiti-main-ui' >
-				{!this.state.isEntry && <ZmitiIndexApp {...data}></ZmitiIndexApp>}
-				{this.state.isEntry && <ZmitiContentApp {...data}></ZmitiContentApp>}
+				{this.state.showLoading&& <ZmitiLoadingApp {...this.state}></ZmitiLoadingApp>}
+				{!this.state.isEntry && !this.state.showLoading &&  <ZmitiIndexApp {...data}></ZmitiIndexApp>}
+				{this.state.isEntry  && !this.state.showTrain && <ZmitiContentApp {...data}></ZmitiContentApp>}
 				{this.state.showTrain && <ZmitiTrainApp {...data}></ZmitiTrainApp>}
 			</div>
 		);
@@ -43,8 +48,12 @@ export class App extends Component {
 		        var code_durl = encodeURIComponent(durl);
 			$.ajax({
 				type:'get',
-				url: "http://api.zmiti.com/weixin/jssdk.php?type=signature&durl="+code_durl+"&worksid="+worksid,
+				url: "http://api.zmiti.com/weixin/jssdk.php",
 				dataType:'jsonp',
+				data:{
+					durl:durl,
+					type:'signature'
+				},
 				jsonp: "callback",
 			    jsonpCallback: "jsonFlickrFeed",
 			    error(){
@@ -70,7 +79,8 @@ export class App extends Component {
 
 			    	wx.ready(()=>{
 
-			    		wx.getLocation({
+
+			    		/*wx.getLocation({
 						    type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
 						    success: function (res) {
 						        var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
@@ -84,7 +94,7 @@ export class App extends Component {
 						    	
 						    }
 						});
-
+*/
 			    			 		//朋友圈
 	                    wx.onMenuShareTimeline({
 	                        title: title, // 分享标题
@@ -123,12 +133,72 @@ export class App extends Component {
 	}
 
 	componentDidMount() {
+
+		this.wxConfig('丝路变迁','一带一经济，一路一丝绸;样子变了，不忘初心。','http://h5.zmiti.com/public/silk/assets/images/300.jpg')
+
 		obserable.on('showTrain',()=>{
 			this.setState({
 				showTrain:true
+			});
+
+		});
+		var arr = [
+			'./assets/images/arron1.png',
+			'./assets/images/bg.jpg',
+			'./assets/images/bg1.jpg',
+			'./assets/images/bianqian1.png',
+			'./assets/images/camel.gif',
+			'./assets/images/camel.png',
+			'./assets/images/camel1.gif',
+			'./assets/images/city.png',
+			'./assets/images/cloud.png',
+			'./assets/images/compass.png',
+			'./assets/images/goods-bg.png',
+			'./assets/images/logo.png',
+			'./assets/images/porcelain.png',
+			'./assets/images/road-bg.png',
+			'./assets/images/sea-bg.jpg',
+			'./assets/images/sea-roadbtn.png',
+			'./assets/images/share-btn.png',
+			'./assets/images/ship.gif',
+			'./assets/images/silk.png',
+			'./assets/images/tea.png',
+			'./assets/images/train.png',
+			'./assets/images/begin.png',
+			'./assets/images/train-bottom.png'
+		];
+		var s=  this;
+		
+		this.loading(arr,(value)=>{
+			s.setState({
+				progress:(value*100|0)+'%'
+			})
+		},()=>{
+			s.setState({
+				progress:(100|0)+'%'
+			});
+			s.setState({
+				showLoading:false
+			});
+		});
+
+		obserable.on('entryContent',()=>{
+			this.setState({
+				isEntry:true
 			})
 		});
+
+		$(document).one('touchstart',()=>{
+			var audio = $('#zmiti-bgsound')[0];
+			if(audio.paused){
+				audio.play();
+			};
+		})
 	}	
+
+	componentWillMount() {
+
+	}
 
 	loading(arr, fn, fnEnd){
         var len = arr.length;

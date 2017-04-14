@@ -16,16 +16,20 @@ class ZmitiContentApp extends Component {
 				{
 					img:'./assets/images/compass.png',
 					className:'',
-					text:'中国输往世界各地的主要货物，从丝绸到瓷器与茶叶，形成一股持续吹向全球的东方文明之风。'
+					text:'是中国古代劳动人民在长期的实践中对磁石磁性认识的结果，是中国的四大发明之一'
 				},
 				{
 					className:'',
 					img:'./assets/images/tea.png',
-					text:'中国输往世界各地的主要货物，从丝绸到瓷器与茶叶，形成一股持续吹向全球的东方文明之风。tea'
+					text:'茶是中国特有的一种著名饮品。'
 				},{
 					className:'zmiti-porcelain',
 					img:'./assets/images/porcelain.png',
-					text:'中国输往世界各地的主要货物，从丝绸到瓷器与茶叶，形成一股持续吹向全球的东方文明之风。porcelain'
+					text:'瓷器是中国劳动人民的一个重要的创造'
+				},{
+					className:'zmiti-silk',
+					img:'./assets/images/silk.png',
+					text:'丝绸是以蚕丝织造的纺织品。'
 				}
 
 			]
@@ -70,14 +74,22 @@ class ZmitiContentApp extends Component {
 		var iNow = 0;
 		var isFilish= false;
 		var {obserable} = this.props;
-		$(this.refs['zmiti-content-main-ui']).swipe('left',()=>{
+		var i =0;
+		$(this.refs['zmiti-content-main-ui']).on('touchstart',()=>{
+			if(++i>=this.state.data.length){
+				$('#zmiti-bgsound1')[0].pause();
+				$('#zmiti-bgtrain')[0].play();
+			}
+		}).swipe('left',()=>{
 
 			if(isFilish){
 				return;
 			}
+			
 			iNow++;
 			if(iNow === this.state.data.length){
 				iNow = 0;
+				
 				this.setState({
 					current:iNow
 				});
@@ -88,7 +100,8 @@ class ZmitiContentApp extends Component {
 						this.setState({
 							isBlur:true
 						});
-						obserable.trigger({type:'showTrain'})
+						
+						obserable.trigger({type:'showTrain'});
 					}else{
 						iNow++;
 						this.setState({

@@ -23,9 +23,74 @@ html,body{-webkit-text-size-adjust: 100%;-webkit-tap-highlight-color: rgba(0, 0,
     }  
     @include pos(a);
     right: 0;
-
-    
+    &.time{
+    	@include transition(6s);
+    }
+    &.active{
       
+      @include transform(translate3d(5rem,0,0));
+    }
+      
+  }
+
+  .index-text{
+    @include pos(a);
+    width:3.8rem;
+    top: 4rem;
+    right: 0px;
+    font-size: 16px;
+    color:#b47e4c;
+    letter-spacing: 4px;
+
+    &.hide{
+      @include transition(1s 1s);
+      opacity:0;
+    }
+  }
+
+   .index-text{
+    opacity:0;
+    @include transition(1s 1s);
+    &.active{
+        opacity:1;
+    }
+  }
+
+  .index-text1,.index-text2{
+     @include transition(2s);
+    opacity:0;
+    &.show{
+      opacity:1;
+    }
+    width:8rem;
+    @include pos(a);
+    left: 1rem;
+    font-size: 16px;
+    color:#b47e4c;
+    top: 4rem;
+    line-height: 30px;
+  }
+
+
+
+  .index-text2{
+    top: 9rem;
+    @include transition(2s 2s);
+    @include transform(translate3d(0,1rem,0));
+    opacity:0;
+    z-index: 9;
+    &.show{
+      opacity:0;
+      @include transform(translate3d(0,0,0));
+    }
+  }
+
+  .zmiti-begin{
+    @include pos(a);
+    bottom: 1rem;
+    width:3rem;
+    right: 1rem;
+    z-index: 10;
   }
   .zmiti-camel{
     width: 10rem;
@@ -33,11 +98,11 @@ html,body{-webkit-text-size-adjust: 100%;-webkit-tap-highlight-color: rgba(0, 0,
     bottom:18vh;
     right: 0;
     z-index: 10;
-    @include transform(translate3d(6rem,0,0));
+    @include transform(translate3d(9rem,0,0));
     
-    @include transformOrigin(center 30%);
+    @include transformOrigin(center 10%);
     &.duration{
-      @include transition_transform(3s linear);
+      @include transition_transform(6s linear);
     }
     &.active{
       @include transform(translate3d(0,0,0));
@@ -62,9 +127,18 @@ html,body{-webkit-text-size-adjust: 100%;-webkit-tap-highlight-color: rgba(0, 0,
 
   .zmiti-change{
 
+    &.hide{
+      @include transition(1s 1s);
+      opacity:0;
+    }
+
     @include pos(r);
     left: 50%;
     img{
+      &.active{
+      	@include transition(2s 1s);
+      	opacity:1;
+      }
       opacity:0;
       width: 100%;
       height: auto;

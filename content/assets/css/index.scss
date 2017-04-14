@@ -9,12 +9,17 @@
   @include transform(3d);
   @include transform(translate3d(0,0,1px));
   &.blur{
+     @include transition(4s);
     @include transform(scale(3));
     -webkit-filter:blur(10px);
-     @include transition(3s);
      opacity:0;
   }
   @include displayBox(vertical);
+
+
+  .zmiti-silk{
+    margin-top: 1rem;
+  }
   &>section{
     -webkit-box-flex:2;
     width: 100%;
