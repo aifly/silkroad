@@ -21,15 +21,15 @@ class ZmitiContentApp extends Component {
 				{
 					className:'',
 					img:'./assets/images/tea.png',
-					text:'茶是中国特有的一种著名饮品。'
+					text:'是中国特有的一种著名饮品'
 				},{
 					className:'zmiti-porcelain',
 					img:'./assets/images/porcelain.png',
-					text:'瓷器是中国劳动人民的一个重要的创造'
+					text:'是中国劳动人民的一个重要的创造'
 				},{
 					className:'zmiti-silk',
 					img:'./assets/images/silk.png',
-					text:'丝绸是以蚕丝织造的纺织品。'
+					text:'是以蚕丝织造的纺织品'
 				}
 
 			]

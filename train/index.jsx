@@ -51,6 +51,7 @@ class ZmitiTrainApp extends Component {
 				</section>
 				<section className={'zmiti-train-text zmiti-train-item '+ (this.state.showItem?'active':'')}>
 					<section className={this.state.toTop?'active':''}>
+						<div>服装，玩具，电子器材......</div>
 						<div>一带一经济；一路一丝绸，</div>
 						<div>样子变了，不忘初心。</div>
 						<div>“一带一路”是中国与丝路沿途国家分享优质产能，共商项目投资、共建基础设施、共享合作成果的倡议。</div>
