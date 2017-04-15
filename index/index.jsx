@@ -57,7 +57,7 @@ class ZmitiIndexApp extends Component {
 					<img onLoad={(e)=>{this.setState({scale:e.target.width/e.target.height,imgW:e.target.width})}} src='./assets/images/bg.jpg'/>
 				</div>
 				<div onTransitionEnd={this.camelTranstionEnd.bind(this)} className={'zmiti-camel '+ (this.state.isBegin?'active duration':'')} style={camelStyle} ref='zmiti-camel'>
-					<img src='./assets/images/camel.gif'/>
+					<img src='./assets/images/camel1.gif'/>
 					<img src='./assets/images/camel1.gif'/>
 					<img src='./assets/images/camel1.gif'/>
 				</div>
@@ -66,6 +66,9 @@ class ZmitiIndexApp extends Component {
 				</section>
 				{this.state.showBeginBtn || !this.state.clicked && <section onTouchTap={this.begin.bind(this)} className='zmiti-begin'>
 									<img src='./assets/images/begin.png'/>
+								</section>}
+				{this.state.showBeginBtn || !this.state.clicked &&<section className='zmiti-entry-sea' onTouchTap={this.entrySea.bind(this)}>
+									<img src='./assets/images/sea-roadbtn.png'/>
 								</section>}
 				<div className={'index-text ' +(this.state.changeImgShow?'':'hide')+(this.state.showTitle ?' active':' ') }>样子变了,<br/>&nbsp;&nbsp;不忘初心。 </div>
 				<div className={'index-text1 '+(this.state.currentText === 0 ? 'show':'')}>从中国西安出发,一路向西，跨越高原峡谷，奔波沙漠盆地，深入中亚腹地，通连欧洲。输往西方的主要货物，从丝绸到瓷器与茶叶，形成一股持续吹向全球的东方文明之风 </div>
@@ -86,6 +89,11 @@ class ZmitiIndexApp extends Component {
 			},1000)
 		}
 		
+	}
+
+	entrySea(){
+		let {obserable} = this.props;
+		obserable.trigger({type:'gotoSeaApp'})
 	}
 
 	beginCanvasAnimate(e){
@@ -114,106 +122,7 @@ class ZmitiIndexApp extends Component {
 		this.bgTimer = false;
 	}
 
-	/*flyParticleToImage(option ={}){
-
-        option.container.innerHTML = "";
-        var canvas = document.createElement("canvas");
-        canvas.style.transition = "1s opacity";
-        canvas.style.position = "absolute";
-        
-        canvas.width = option.container.offsetWidth;
-        canvas.height = option.container.offsetHeight;
-        option.img.width = canvas.width;
-        option.img.height  = canvas.height ;
-
-        option.container.appendChild(canvas);
-        var stage = new createjs.Stage(canvas);
-        var container = new createjs.Container();
-
-        var outCanvas = createShape();
-        var outContext = outCanvas.getContext("2d");
-        var dots = getImageData(outCanvas, outContext);
-
-
-        var ball = [];
-
-        for (var i = 0; i < dots.length; i++) {
-            var shape = new createjs.Shape();
-            var x = Math.random() * canvas.width * 2,
-                y = Math.random() * canvas.height * 2;
-            var circle = shape.graphics.beginFill('rgba('+dots[i].r+','+dots[i].g+','+dots[i].b+','+dots[i].a+')').drawCircle(x-14, y, 1);
-            shape.posX = x-3;
-            shape.posY = y;
-            container.addChild(shape);
-            ball.push(shape);
-        }
-        container.x = 10;
-
-
-        stage.addChild(container);
-
-        stage.update();
-
-
-
-        function getImageData(outCanvas, outContext) {
-            var imgData = outContext.getImageData(0, 0, outCanvas.width, outCanvas.height);
-            var dots = [],
-                x = 0,
-                y = 0,
-                gap = 4;
-
-            for (var x = 0; x < imgData.width; x += gap) {
-                for (var y = 0; y < imgData.height; y += gap) {
-                    var i = (x + y * outCanvas.width) * 4;
-                    
-                    if (imgData.data[i + 3] > 50 && imgData.data[i ] !==255 && imgData.data[i +1] !==255 && imgData.data[i +2] !==255) {
-                        dots.push({
-                            x: x,
-                            y: y,
-                            r:imgData.data[i],
-                            g:imgData.data[i + 1],
-                            b:imgData.data[i + 2],
-                            a:imgData.data[i + 3]
-                        });
-                    }
-                }
-            }
-            return dots;
-        }
-
-        function createShape() {
-            var outCanvas = document.createElement("canvas");
-            outCanvas.width = option.img.width;
-            outCanvas.height = option.img.height;
-            var context = outCanvas.getContext("2d");
-            var outStage = new createjs.Stage(outCanvas);
-
-
-            context.drawImage(option.img, 0, 0, option.img.width, option.img.height);
-
-            outCanvas.style.position = "absolute";
-            outCanvas.style.opacity = 0;
-            outCanvas.style.transition = "opacity 2s";
-
-            option.container.appendChild(outCanvas);
-
-            return outCanvas;
-        }
-
-
-        for (var i = 0; i < ball.length; i++) {
-            createjs.Tween.get(ball[i], { override: true }).wait(Math.random() * 800).to({ x: dots[i].x - ball[i].posX, y: dots[i].y - ball[i].posY, alpha: 1 }, 500, createjs.Ease.cubicInOut);
-        }
-        setTimeout(function () {
-            outCanvas.style.opacity = 1;
-            canvas.style.opacity = 0;
-            option.complate && option.complate();
-        }, 2000);
-        createjs.Ticker.setFPS(60);
-        createjs.Ticker.addEventListener("tick", stage);
-	}*/
-
+	 
 	begin(){
 
 		this.starting = this.starting || 1;
@@ -262,9 +171,7 @@ class ZmitiIndexApp extends Component {
 		this.camel = camel;
 		var indexBg = this.refs['index-bg'];
 		this.indexBg = indexBg;
-
-		this.requesAniation = window.webkitRequestAnimationFrame ;
-		
+ 
 	}
 
 	beginGame(){
@@ -280,7 +187,7 @@ class ZmitiIndexApp extends Component {
 		var x = 0;
 		var s =this;
 		this.timer = setInterval(()=>{
-			iNow+=1;
+			iNow+=.1;
 
 			var scale = (iNow/20<1?1:iNow/25);
 			scale > 2 && (scale = 2);
@@ -292,12 +199,11 @@ class ZmitiIndexApp extends Component {
 			s.state.camelStyle.z = z;
 
 
-			x+=.1;
+			x+=.4;
 			s.state.indexBgStyle.x = x;
 
 			s.state.indexBgStyle.y = -top;
 			s.state.indexBgStyle.z = z
-
 
 			s.forceUpdate()
 			//this.camel.style.WebkitTransform = 'translate3d('+0+'px,'+-top+'px,'+z+'px)';
@@ -311,32 +217,32 @@ class ZmitiIndexApp extends Component {
 
 
 	textEnd(){
+		
 		var {obserable} = this.props;
 
-		this.setState({
-			showText2:false
-		});
+			this.setState({
+				showText2:false
+			});
 
-		clearInterval(this.timer)
-		this.timer = false;
-		this.bgTimer = false;
-		/*;
-		clearInterval(this.bgTimer);*/
-		this.state.camelStyle.transition = '2s';
-		this.state.camelStyle.x =-5;
-		this.state.camelStyle.y = -this.viewW/10*2.5;
-		this.state.camelStyle.z = this.viewW / 10 * 12.5;
+			clearInterval(this.timer)
+			this.timer = false;
+			this.bgTimer = false;
+			/*;
+			clearInterval(this.bgTimer);*/
+			this.state.camelStyle.transition = '2s';
+			this.state.camelStyle.x =-5;
+			this.state.camelStyle.y = -this.viewW/10*2.5;
+			this.state.camelStyle.z = this.viewW / 10 * 12.5;
+				
 			
-		
-		this.forceUpdate();
-		//this.camel.style.WebkitTransform = 'translate3d('+-5+'px,'+(-this.viewW/10*2.5)+'px,'+400+'px)';
-		
-		setTimeout(()=>{
-			obserable.trigger({
-				type:'entryContent'
-			})
-		},1000)
-
+			this.forceUpdate();
+			//this.camel.style.WebkitTransform = 'translate3d('+-5+'px,'+(-this.viewW/10*2.5)+'px,'+400+'px)';
+			
+			setTimeout(()=>{
+				obserable.trigger({
+					type:'entryContent'
+				})
+			},1000)
 		
 	}
 }

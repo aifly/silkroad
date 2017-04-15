@@ -10,6 +10,9 @@ import ZmitiIndexApp from './index/index.jsx';
 import ZmitiContentApp from './content/index.jsx';
 import ZmitiTrainApp from './train/index.jsx';
 import ZmitiLoadingApp from './loading/index.jsx';
+import ZmitiSeaIndexApp from './seaindex/index.jsx';
+import ZmitiSeaApp from './sea/index.jsx';
+
 
 
 import Obserable  from './assets/js/obserable';
@@ -24,6 +27,9 @@ export class App extends Component {
 			showTrain:false,
 			progress:'0%',
 			showLoading:true,
+			entrySea:false,
+			showSea:false,
+			contentBg:'./assets/images/bg1.jpg'
 
 		}
 		this.viewW = document.documentElement.clientWidth;
@@ -35,10 +41,12 @@ export class App extends Component {
 		}
 		return (
 			<div className='zmiti-main-ui' >
-				{this.state.showLoading&& <ZmitiLoadingApp {...this.state}></ZmitiLoadingApp>}
-				{!this.state.isEntry && !this.state.showLoading &&  <ZmitiIndexApp {...data}></ZmitiIndexApp>}
-				{this.state.isEntry  && !this.state.showTrain && <ZmitiContentApp {...data}></ZmitiContentApp>}
-				{this.state.showTrain && <ZmitiTrainApp {...data}></ZmitiTrainApp>}
+				{this.state.showLoading &&   <ZmitiLoadingApp {...this.state}></ZmitiLoadingApp>}
+				{!this.state.isEntry &&　!this.state.entrySea && !this.state.showLoading &&  <ZmitiIndexApp {...data}></ZmitiIndexApp>}
+				{this.state.isEntry  && !this.state.entrySea && !this.state.showTrain && <ZmitiContentApp {...this.state} {...data}></ZmitiContentApp>}
+				{this.state.showTrain && !this.state.entrySea && <ZmitiTrainApp {...data}></ZmitiTrainApp>}
+				{this.state.entrySea && !this.state.showSea && !this.state.showLoading && <ZmitiSeaIndexApp {...data}></ZmitiSeaIndexApp>}
+				{!this.state.showLoading  &&  this.state.showSea && <ZmitiSeaApp {...data}></ZmitiSeaApp>}
 			</div>
 		);
 	}
@@ -140,14 +148,56 @@ export class App extends Component {
 			this.setState({
 				showTrain:true
 			});
-
 		});
+
+		obserable.on('initApp',()=>{
+			this.setState({
+				isEntry:false,
+				showTrain:false,
+				progress:'0%',
+				showLoading:false,
+				entrySea:false,
+				showSea:false,
+				contentBg:'./assets/images/bg1.jpg'
+			});
+			$('#zmiti-bgtrain').attr('src','./assets/music/train.mp3')[0].pause();
+			$('#zmiti-bgsound')[0].pause();
+			$('#zmiti-bgsound1')[0].pause();
+		});
+
+		obserable.on('gotoSeaApp',()=>{
+			this.setState({
+				isEntry:false,
+				showTrain:false,
+				progress:'0%',
+				showLoading:false,
+				entrySea:true,
+				showSea:false
+			});
+
+			$('#zmiti-bgtrain').attr('src','./assets/music/hailang.mp3').attr('loop','loop')[0].play();
+			$('#zmiti-bgsound')[0].pause();
+			$('#zmiti-bgsound1')[0].pause();
+		});
+
+		obserable.on('entrySea',()=>{
+			this.setState({
+				showTrain:false,
+				entrySea:true
+			})
+		});
+		obserable.on('showSea',()=>{
+			this.setState({
+				showSea:true,entrySea:false
+			})
+		})
 		var arr = [
 			'./assets/images/arron1.png',
 			'./assets/images/bg.jpg',
 			'./assets/images/bg1.jpg',
+			'./assets/images/sea-bg.jpg',
+			'./assets/images/sea-bg-inner.jpg',
 			'./assets/images/bianqian1.png',
-			'./assets/images/camel.gif',
 			'./assets/images/camel.png',
 			'./assets/images/camel1.gif',
 			'./assets/images/city.png',
@@ -161,10 +211,13 @@ export class App extends Component {
 			'./assets/images/sea-roadbtn.png',
 			'./assets/images/share-btn.png',
 			'./assets/images/ship.gif',
+			'./assets/images/ship.png',
+
 			'./assets/images/silk.png',
 			'./assets/images/tea.png',
 			'./assets/images/train.png',
 			'./assets/images/begin.png',
+
 			'./assets/images/train-bottom.png'
 		];
 		var s=  this;
@@ -182,10 +235,12 @@ export class App extends Component {
 			});
 		});
 
-		obserable.on('entryContent',()=>{
+		obserable.on('entryContent',(data)=>{
 			this.setState({
-				isEntry:true
-			})
+				isEntry:true,
+				entrySea:false,
+				contentBg:data || './assets/images/bg1.jpg'
+			});
 		});
 
 		$(document).one('touchstart',()=>{

@@ -33,11 +33,11 @@ html, body {
       width: auto;
       height: 100%; }
     .index-main-ui .index-bg.time {
-      -webkit-transition: 6s;
-      transition: 6s; }
+      -webkit-transition: 7s linear;
+      transition: 7s linear; }
     .index-main-ui .index-bg.active {
-      -webkit-transform: translate3d(5rem, 0, 0);
-      transform: translate3d(5rem, 0, 0); }
+      -webkit-transform: translate3d(9rem, 0, 0);
+      transform: translate3d(9rem, 0, 0); }
   .index-main-ui .index-text {
     position: absolute;
     width: 3.8rem;
@@ -56,7 +56,8 @@ html, body {
     transition: 1s 1s; }
     .index-main-ui .index-text.active {
       opacity: 1; }
-  .index-main-ui .index-text1, .index-main-ui .index-text2 {
+  .index-text1, .index-text2 {
+    text-indent: 2em;
     -webkit-transition: 2s;
     transition: 2s;
     opacity: 0;
@@ -67,7 +68,7 @@ html, body {
     color: #b47e4c;
     top: 4rem;
     line-height: 30px; }
-    .index-main-ui .index-text1.show, .index-main-ui .index-text2.show {
+    .index-text1.show, .index-text2.show {
       opacity: 1; }
   .index-main-ui .index-text2 {
     top: 9rem;
@@ -81,6 +82,12 @@ html, body {
       opacity: 0;
       -webkit-transform: translate3d(0, 0, 0);
       transform: translate3d(0, 0, 0); }
+  .index-main-ui .zmiti-entry-sea {
+    position: absolute;
+    bottom: 1rem;
+    width: 4.5rem;
+    left: 1rem;
+    z-index: 10; }
   .index-main-ui .zmiti-begin {
     position: absolute;
     bottom: 1rem;

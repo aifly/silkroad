@@ -41,7 +41,7 @@ class ZmitiContentApp extends Component {
 
 	render() {
 		var mainStyle = {
-			background:'url(./assets/images/bg1.jpg) no-repeat center bottom / cover ',
+			background:'url('+this.props.contentBg+') no-repeat center bottom / cover ',
 		}
 		var goodStyle={
 			background:'url(./assets/images/goods-bg.png) no-repeat center bottom / contain '	
@@ -101,7 +101,13 @@ class ZmitiContentApp extends Component {
 							isBlur:true
 						});
 						
-						obserable.trigger({type:'showTrain'});
+						
+						if(this.props.contentBg === './assets/images/bg1.jpg'){
+							obserable.trigger({type:'showTrain'});	
+						}
+						else{
+							obserable.trigger({type:'showSea'});		
+						}
 					}else{
 						iNow++;
 						this.setState({

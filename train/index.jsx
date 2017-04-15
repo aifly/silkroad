@@ -64,7 +64,7 @@ class ZmitiTrainApp extends Component {
 							<img src='./assets/images/logo.png'/>
 							新华社客户端出品
 						</div>
-						<section className='zmiti-searoad-btn' hidden>
+						<section className='zmiti-searoad-btn' onTouchTap={this.entrySea.bind(this)}>
 							<img src='./assets/images/sea-roadbtn.png'/>
 						</section>
 						<section className='zmiti-share' onTouchTap={()=>{this.setState({maskShow:true})}}>
@@ -75,6 +75,12 @@ class ZmitiTrainApp extends Component {
 				{this.state.maskShow&& <section onTouchStart={()=>{this.setState({maskShow:false})}} className='zmiti-mask' style={maskStyle}></section>}
 			</div>
 		);
+	}
+
+	entrySea(){
+		let {obserable} = this.props;
+		obserable.trigger({type:'entrySea'});
+		$('#zmiti-bgtrain').attr('src','./assets/music/hailang.mp3').attr('loop','loop')[0].play();
 	}
 
 
