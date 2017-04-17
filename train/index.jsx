@@ -62,7 +62,7 @@ class ZmitiTrainApp extends Component {
 					<div className={'zmiti-train-share '+(this.state.showShare?'active':'')}>
 						<div className='zmiti-logo'>
 							<img src='./assets/images/logo.png'/>
-							新华社客户端出品
+							新华社新媒体中心出品
 						</div>
 						<section className='zmiti-searoad-btn' onTouchTap={this.entrySea.bind(this)}>
 							<img src='./assets/images/sea-roadbtn.png'/>
