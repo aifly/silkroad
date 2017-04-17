@@ -70,7 +70,7 @@ class ZmitiSeaApp extends Component {
 					<div className={'zmiti-train-share '+(this.state.showShare?'active':'')}>
 						<div className='zmiti-logo'>
 							<img src='./assets/images/logo.png'/>
-							新华社客户端出品
+							新华社新媒体中心出品
 						</div>
 
 						<section className='zmiti-leand' onTouchStart={this.initApp.bind(this)}>

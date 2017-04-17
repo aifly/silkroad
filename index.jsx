@@ -43,7 +43,7 @@ export class App extends Component {
 			<div className='zmiti-main-ui' >
 				{this.state.showLoading &&   <ZmitiLoadingApp {...this.state}></ZmitiLoadingApp>}
 				{!this.state.isEntry &&　!this.state.entrySea && !this.state.showLoading &&  <ZmitiIndexApp {...data}></ZmitiIndexApp>}
-				{this.state.isEntry  && !this.state.entrySea && !this.state.showTrain && <ZmitiContentApp {...this.state} {...data}></ZmitiContentApp>}
+				{this.state.isEntry && !this.state.showSea  && !this.state.entrySea && !this.state.showTrain && <ZmitiContentApp {...this.state} {...data}></ZmitiContentApp>}
 				{this.state.showTrain && !this.state.entrySea && <ZmitiTrainApp {...data}></ZmitiTrainApp>}
 				{this.state.entrySea && !this.state.showSea && !this.state.showLoading && <ZmitiSeaIndexApp {...data}></ZmitiSeaIndexApp>}
 				{!this.state.showLoading  &&  this.state.showSea && <ZmitiSeaApp {...data}></ZmitiSeaApp>}

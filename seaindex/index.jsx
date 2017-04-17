@@ -50,7 +50,7 @@ class ZmitiSeaIndexApp extends Component {
 					<img style={bgStyle} onLoad={e=>{this.setState({imgW:e.target.width})}} src='./assets/images/sea-bg.jpg'/>
 				</section>
 				<div className={'index-text1 seaindex-text '+(this.state.showText?'active':'')}>
-					唐代，“广州通海夷道”的海上航路，这便是我国海上丝绸之路的最早叫法成为中国与外国贸易往来和文化交流的海上大通道并推动了沿线各国的共同发展
+					唐代，“广州通海夷道”的海上航路，这便是我国海上丝绸之路的最早叫法，成为中国与外国贸易往来和文化交流的海上大通道并推动了沿线各国的共同发展
 				</div>
 				<section onTransitionEnd={this.transitonEnd.bind(this)} className={'seaindex-ship '+(this.state.toTop?'toTop ':'')+(this.state.toBig?' toBig ':'')} >
 					<img src='./assets/images/ship.gif' style={shipStyle}/>

@@ -94,28 +94,13 @@ class ZmitiContentApp extends Component {
 					current:iNow
 				});
 				isFilish = true;
-				var t = setInterval(()=>{
-					if(iNow === this.state.data.length-1){
-						clearInterval(t);
-						this.setState({
-							isBlur:true
-						});
-						
-						
-						if(this.props.contentBg === './assets/images/bg1.jpg'){
-							obserable.trigger({type:'showTrain'});	
-						}
-						else{
-							obserable.trigger({type:'showSea'});		
-						}
-					}else{
-						iNow++;
-						this.setState({
-							current:iNow
-						});	
-					}
-					
-				},2000);
+				if(this.props.contentBg === './assets/images/bg1.jpg'){
+					obserable.trigger({type:'showTrain'});	
+				}
+				else{
+					obserable.trigger({type:'showSea'});		
+				}
+				
 			}else{
 				this.setState({
 					current:iNow
