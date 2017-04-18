@@ -45,11 +45,20 @@
         top: 7vh;
         margin-left: -3rem;
         width: 6rem;
-        opacity: 0; }
+        opacity: 0;
+        -webkit-transition: 0.5s;
+        transition: 0.5s;
+        opacity: 0;
+        -webkit-transform: translate3d(6rem, 0, 0);
+        transform: translate3d(6rem, 0, 0); }
+        .zmiti-content-main-ui > section:first-of-type img.hide {
+          opacity: 0;
+          -webkit-transform: translate3d(-6rem, 0, 0);
+          transform: translate3d(-6rem, 0, 0); }
         .zmiti-content-main-ui > section:first-of-type img.active {
           opacity: 1;
-          -webkit-transition: opacity 2s;
-          transition: opacity 2s; }
+          -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0); }
       .zmiti-content-main-ui > section:first-of-type .zmiti-porcelain {
         width: 4rem;
         margin-left: -2rem; }
@@ -68,5 +77,15 @@
           opacity: 1;
           -webkit-transition: opacity 2s;
           transition: opacity 2s; }
+  .zmiti-content-main-ui .zmiti-content-bottom {
+    position: absolute;
+    width: 100%;
+    bottom: 6vh;
+    text-align: right; }
+    .zmiti-content-main-ui .zmiti-content-bottom img {
+      -webkit-transition: 0.5s;
+      transition: 0.5s;
+      width: 2rem;
+      margin-right: 1rem; }
 
 /*# sourceMappingURL=index.css.map */

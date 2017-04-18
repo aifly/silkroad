@@ -43,7 +43,7 @@ export class App extends Component {
 			<div className='zmiti-main-ui' >
 				{this.state.showLoading &&   <ZmitiLoadingApp {...this.state}></ZmitiLoadingApp>}
 				{!this.state.isEntry &&　!this.state.entrySea && !this.state.showLoading &&  <ZmitiIndexApp {...data}></ZmitiIndexApp>}
-				{this.state.isEntry && !this.state.showSea  && !this.state.entrySea && !this.state.showTrain && <ZmitiContentApp {...this.state} {...data}></ZmitiContentApp>}
+				{this.state.isEntry && !this.state.showSea  && !this.state.entrySea && !this.state.showTrain &&  <ZmitiContentApp {...this.state} {...data}></ZmitiContentApp>}
 				{this.state.showTrain && !this.state.entrySea && <ZmitiTrainApp {...data}></ZmitiTrainApp>}
 				{this.state.entrySea && !this.state.showSea && !this.state.showLoading && <ZmitiSeaIndexApp {...data}></ZmitiSeaIndexApp>}
 				{!this.state.showLoading  &&  this.state.showSea && <ZmitiSeaApp {...data}></ZmitiSeaApp>}
@@ -142,7 +142,7 @@ export class App extends Component {
 
 	componentDidMount() {
 
-		this.wxConfig('丝路变迁','一带一经济，一路一丝绸;样子变了，不忘初心。','http://h5.zmiti.com/public/silk/assets/images/300.jpg')
+		this.wxConfig('丝路变迁','千年的时空穿越。','http://h5.zmiti.com/public/silk/assets/images/300.jpg')
 
 		obserable.on('showTrain',()=>{
 			this.setState({

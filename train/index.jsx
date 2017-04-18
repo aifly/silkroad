@@ -51,10 +51,7 @@ class ZmitiTrainApp extends Component {
 				</section>
 				<section className={'zmiti-train-text zmiti-train-item '+ (this.state.showItem?'active':'')}>
 					<section className={this.state.toTop?'active':''}>
-						<div>服装，玩具，电子器材......</div>
-						<div>一带一经济；一路一丝绸，</div>
-						<div>样子变了，不忘初心。</div>
-						<div>“一带一路”是中国与丝路沿途国家分享优质产能，共商项目投资、共建基础设施、共享合作成果的倡议。</div>
+						<div>从一步一个脚印的大漠驼队，到呼啸飞驰的中欧班列，穿越了千年的时空。瓷器丝绸茶叶被服装玩具电子器材替代，但丝绸之路承载的和平合作、开放包容、互学互鉴、互利共赢的精神薪火相传，“一带一路”正奏响人类共同发展的时代强音。</div>
 					</section>
 				</section>
 				<section className={'zmiti-train-item '+ (this.state.showItem?'active':'')}>

@@ -94,8 +94,8 @@
   .zmiti-sea-main-ui .zmiti-ship-text {
     position: absolute;
     font-size: 14px;
-    text-align: right;
     width: 8rem;
+    text-indent: 2em;
     height: 30vh;
     left: 1rem;
     top: 4.6rem;

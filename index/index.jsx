@@ -70,8 +70,8 @@ class ZmitiIndexApp extends Component {
 				{this.state.showBeginBtn || !this.state.clicked &&<section className='zmiti-entry-sea' onTouchTap={this.entrySea.bind(this)}>
 									<img src='./assets/images/sea-roadbtn.png'/>
 								</section>}
-				<div className={'index-text ' +(this.state.changeImgShow?'':'hide')+(this.state.showTitle ?' active':' ') }>样子变了,<br/>&nbsp;&nbsp;不忘初心。 </div>
-				<div className={'index-text1 '+(this.state.currentText === 0 ? 'show':'')}>从中国西安出发,一路向西，跨越高原峡谷，奔波沙漠盆地，深入中亚腹地，通连欧洲。输往西方的主要货物，从丝绸到瓷器与茶叶，形成一股持续吹向全球的东方文明之风 </div>
+				<div className={'index-text ' +(this.state.changeImgShow?'':'hide')+(this.state.showTitle ?' active':' ') }>千年的时空穿越</div>
+				<div className={'index-text1 '+(this.state.currentText === 0 ? 'show':'')}>古时丝绸之路从中国西安出发，载有瓷器、丝绸和茶叶等“中国特产”的驼队跨越高原峡谷，奔波沙漠盆地，深入中亚腹地，一路向西，通连欧洲。</div>
 				<div onTransitionEnd={this.textEnd.bind(this)}  className={'index-text2 '+ (this.state.showText2?'show':'')}>从一步一个脚印的大漠驼队，到呼啸飞驰的中欧班列，“钢铁驼队”穿越了千年的时空。</div>
 			</div>
 		);

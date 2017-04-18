@@ -16,20 +16,20 @@ class ZmitiContentApp extends Component {
 				{
 					img:'./assets/images/compass.png',
 					className:'',
-					text:'是中国古代劳动人民在长期的实践中对磁石磁性认识的结果，是中国的四大发明之一'
+					text:''
 				},
 				{
 					className:'',
 					img:'./assets/images/tea.png',
-					text:'是中国特有的一种著名饮品'
+					text:''
 				},{
 					className:'zmiti-porcelain',
 					img:'./assets/images/porcelain.png',
-					text:'是中国劳动人民的一个重要的创造'
+					text:''
 				},{
 					className:'zmiti-silk',
 					img:'./assets/images/silk.png',
-					text:'是以蚕丝织造的纺织品'
+					text:''
 				}
 
 			]
@@ -51,7 +51,7 @@ class ZmitiContentApp extends Component {
 				<section style={goodStyle}>
 					{
 						this.state.data.map((item,i)=>{
-							return <img key={i} className={this.state.data[this.state.current].className + (this.state.current === i?' active':'')} src={this.state.data[this.state.current].img}/>			
+							return <img ref={'zmiti-good-img-'+i} key={i} className={this.state.data[i].className + (this.state.current === i?' active':'')} src={this.state.data[i].img}/>
 						})
 					}
 					
@@ -59,18 +59,21 @@ class ZmitiContentApp extends Component {
 				<section>
 					{
 						this.state.data.map((item,i)=>{
-							return <div className={this.state.current===i?'active':''} key={i}>{this.state.data[this.state.current].text}</div>
+							return <div   key={i}>{this.state.data[this.state.current].text}</div>
 						})
 					}
 					
 				</section>
 				<section>
+					<div className='zmiti-content-bottom' style={{background:'url(./assets/images/line.png) repeat-x center 70%'}}>
+						<img style={{WebkitTransform:'translate3d('+(-2*this.state.current)+'rem,0,0)'}} src='./assets/images/swipeleft.png'/>
+					</div>
 				</section>
 			</div>
 		);
 	}
 
-	componentDidMount() {
+	componentDidMount() {	
 		var iNow = 0;
 		var isFilish= false;
 		var {obserable} = this.props;
@@ -87,12 +90,7 @@ class ZmitiContentApp extends Component {
 			}
 			
 			iNow++;
-			if(iNow === this.state.data.length){
-				iNow = 0;
-				
-				this.setState({
-					current:iNow
-				});
+			if(iNow >= this.state.data.length){
 				isFilish = true;
 				if(this.props.contentBg === './assets/images/bg1.jpg'){
 					obserable.trigger({type:'showTrain'});	
@@ -100,11 +98,13 @@ class ZmitiContentApp extends Component {
 				else{
 					obserable.trigger({type:'showSea'});		
 				}
-				
 			}else{
 				this.setState({
 					current:iNow
-				})	
+				})
+				this.refs['zmiti-good-img-'+(iNow)].classList.add('active');
+				this.refs['zmiti-good-img-'+(iNow-1)].classList.remove('active');
+				this.refs['zmiti-good-img-'+(iNow-1)].classList.add('hide');
 			}
 			
 		});

@@ -32,10 +32,16 @@
         margin-left: -3rem;
         width:6rem;
         opacity:0;
-       
+        @include transition(.5s);
+        opacity: 0;
+        @include transform(translate3d(6rem,0,0));
+        &.hide{
+          opacity: 0;
+          @include transform(translate3d(-6rem,0,0));
+        }
         &.active{
           opacity:1;
-           @include transition(opacity 2s);
+          @include transform(translate3d(0,0,0));
         }
       }
       .zmiti-porcelain{
@@ -59,6 +65,19 @@
            @include transition(opacity 2s);
         }
       }
+    }
+  }
+
+
+  .zmiti-content-bottom{
+    @include pos(a);
+    width:100%;
+    bottom: 6vh;
+    text-align: right;;
+    img{
+      @include transition(.5s);
+      width:2rem;
+      margin-right: 1rem;
     }
   }
 }

@@ -127,9 +127,9 @@
         -webkit-box-align: center;
         -webkit-box-pack: center;
         -webkit-box-orient: vertical;
-        text-align: right;
+        text-indent: 2em;
         font-size: 14px;
-        width: 8rem;
+        width: 8.2rem;
         height: 6rem;
         margin: 0 auto;
         opacity: 0;

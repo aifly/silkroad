@@ -58,10 +58,7 @@ class ZmitiSeaApp extends Component {
 
 				<section className={'zmiti-ship-text '+(this.state.top?'active':'')}>
 					<section>
-						<div>服装，玩具，电子器材......</div>
-						<div>一带一经济；一路一丝绸，</div>
-						<div>样子变了，不忘初心。</div>
-						<div>“一带一路”是中国与丝路沿途国家分享优质产能，共商项目投资、共建基础设施、共享合作成果的倡议。</div>
+						<div>从利用牵星术和指南针的古船扬帆到现代的超大型集装箱货轮，“海丝”传奇再被续写，搭载着高附加值的电子、家电等产品的<b>远洋货轮</b>启航赴欧。丝绸之路承载的和平合作、开放包容、互学互鉴、互利共赢的精神薪火相传，“一带一路”正奏响人类共同发展的时代强音。</div>
 					</section>
 				</section>
 
