@@ -14,15 +14,6 @@ class ZmitiContentApp extends Component {
 			current:0,
 			data:[
 				{
-					img:'./assets/images/compass.png',
-					className:'',
-					text:''
-				},
-				{
-					className:'',
-					img:'./assets/images/tea.png',
-					text:''
-				},{
 					className:'zmiti-porcelain',
 					img:'./assets/images/porcelain.png',
 					text:''
@@ -30,8 +21,11 @@ class ZmitiContentApp extends Component {
 					className:'zmiti-silk',
 					img:'./assets/images/silk.png',
 					text:''
+				},{
+					className:'',
+					img:'./assets/images/tea.png',
+					text:''
 				}
-
 			]
 
 		};

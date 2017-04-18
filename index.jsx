@@ -142,7 +142,7 @@ export class App extends Component {
 
 	componentDidMount() {
 
-		this.wxConfig('丝路变迁','千年的时空穿越。','http://h5.zmiti.com/public/silk/assets/images/300.jpg')
+		this.wxConfig('丝路变迁','千年的时空穿越','http://h5.zmiti.com/public/silk/assets/images/300.jpg')
 
 		obserable.on('showTrain',()=>{
 			this.setState({
@@ -202,7 +202,6 @@ export class App extends Component {
 			'./assets/images/camel1.gif',
 			'./assets/images/city.png',
 			'./assets/images/cloud.png',
-			'./assets/images/compass.png',
 			'./assets/images/goods-bg.png',
 			'./assets/images/logo.png',
 			'./assets/images/porcelain.png',
